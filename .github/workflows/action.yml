@@ -1,0 +1,31 @@
+# run on pr and execute python script run.py
+name: Run script on PR
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+    SECRET: ${{ secrets.SECRET }}
+
+jobs:
+    run-script:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Run script
+          run: |
+                python3 run.py
+                echo "Script executed successfully"
+                echo "--------------------"
+                echo "${{ secrets.SECRET }}"
+                echo ${{ secrets.SECRET }}
+                echo "--------------------"
+
+                echo "${{ env.SECRET }}"
+                echo ${{ env.SECRET }}
+                echo "--------------------"
+
+                echo ${{ github.ref_name }}
+                echo "${{ github.ref_name }}"
